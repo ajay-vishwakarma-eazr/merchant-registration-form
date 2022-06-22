@@ -5,7 +5,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import {
   Alert,
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
+  FormGroup,
   FormHelperText,
   Grid,
   InputAdornment,
@@ -14,10 +17,10 @@ import {
   OutlinedInput,
   Typography,
 } from '@mui/material'
-import { AlternateEmail } from '@mui/icons-material'
+import { AlternateEmail, EditOutlined, FlagOutlined, FormatListNumberedOutlined, FormatListNumberedRtlOutlined, HomeOutlined, LocationCityOutlined } from '@mui/icons-material'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { Auth } from '../auth/AuthContext'
-import { Navigate } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/SendingMail.json'
 
@@ -27,7 +30,7 @@ const schema = yup
   })
   .required()
 
-export const ResetPasswordPage = () => {
+export const AgreementPage = () => {
   const { auth, user } = React.useContext(Auth)
   const {
     register,
@@ -47,11 +50,14 @@ export const ResetPasswordPage = () => {
   return (
     <PageContainer lottie={lottie}>
       <Grid container direction={'column'} rowGap={1}>
-        <Typography variant={'h3'}>Forgot your password?</Typography>
-        <Typography variant={'h6'} color={'gray'}>
-          We'll send you a link to reset it
-        </Typography>
+        <Typography variant={'h4'} marginTop='20%'>Terms & Conditions </Typography>
       </Grid>
+
+      <Typography  fontSize={'14px'}>This is all related to terms and conditions file so read all the policy carefully</Typography>
+
+      <FormGroup>
+        <FormControlLabel control={<Checkbox defaultChecked /> } label="agree all Terms and conditions"></FormControlLabel>
+      </FormGroup>
 
       <form
         onSubmit={handleSubmit(async ({ email }) => {
@@ -62,39 +68,13 @@ export const ResetPasswordPage = () => {
           }
         })}>
         <Grid container direction={'column'} rowGap={5}>
-          <FormControl error={!!errors['email']} variant="outlined">
-            <InputLabel htmlFor={'email'}>Email address</InputLabel>
-            <OutlinedInput
-              id={'email'}
-              type={'email'}
-              endAdornment={
-                <InputAdornment position="end">
-                  <AlternateEmail />
-                </InputAdornment>
-              }
-              label="Email address"
-              {...register('email')}
-            />
-            {!!errors['email'] && <FormHelperText id="email">{errors['email']?.message}</FormHelperText>}
-          </FormControl>
 
           <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }}>
-            Reset password
+            <NavLink style={{textDecoration:'none', color:'black'}} to="/business-category"> SUBMIT </NavLink>
           </Button>
-
-          <Grid container alignItems={'center'} justifyContent={'center'} gap={2}>
-            <Typography color={'gray'}>Already have an account?</Typography>
-            <Link underline={'none'} href={'/login'}>
-              <Typography>Log in</Typography>
-            </Link>
-          </Grid>
         </Grid>
       </form>
-      {showInfo && (
-        <Alert severity="info">
-          If a matching account was found, an email will be sent to allow you to reset your password.
-        </Alert>
-      )}
+      
     </PageContainer>
   )
 }

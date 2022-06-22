@@ -55,7 +55,7 @@ export const PageContainer = ({ children, lottie }: PageContainerProps) => {
         direction={'column'}
         flexWrap={'nowrap'}
         rowGap={5}
-        paddingY={10}
+        paddingY={5}
         paddingX={isTablet ? 10 : 15}
         textAlign={'center'}
         className={styles.container}>
@@ -69,7 +69,7 @@ const useStyles = (theme: Theme) => ({
   root: css`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 700px;
+    height: 700px;
     max-width: 1200px;
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.1);
     border-radius: 24px;

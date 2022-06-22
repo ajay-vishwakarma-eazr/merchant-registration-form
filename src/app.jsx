@@ -2,13 +2,13 @@ import * as React from 'react'
 import { AuthContext, Auth } from './auth/AuthContext'
 import CssBaseline from '@mui/material/CssBaseline'
 import { Button, createTheme, ThemeProvider } from '@mui/material'
-import { ThemeMode, useDetectTheme } from './hooks/useDetectTheme'
+import {  useDetectTheme } from './hooks/useDetectTheme'
 import { AnimatedRoutes } from './components/AnimatedRoutes'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-const App: React.FC = () => {
+const App= () => {
   const systemTheme = useDetectTheme()
-  const [mode, setMode] = React.useState<ThemeMode | undefined>()
+  const [mode, setMode] = React.useState('dark')
   const _theme = React.useMemo(
     () =>
       createTheme({
@@ -22,7 +22,6 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={_theme}>
       <CssBaseline />
-      <AuthContext>
         <div
           style={{
             display: 'grid',
@@ -31,21 +30,17 @@ const App: React.FC = () => {
             alignContent: 'center',
             backgroundColor: _theme.palette.background.default,
           }}>
-          <Button
+          {/* <Button
             variant={'contained'}
             onClick={() => setMode(last => (last === 'dark' ? 'light' : 'dark'))}
             style={{ position: 'absolute', left: '50%', bottom: '30px', transform: 'translateX(-50%)' }}>
             {_theme.palette.mode === 'dark' ? 'Light mode' : 'Dark mode'}
-          </Button>
-          <Auth.Consumer>
-            {({ user }) => (
+          </Button> */}
+         
               <Router>
-                <AnimatedRoutes isAllowed={!!user} />
-              </Router>
-            )}
-          </Auth.Consumer>
+                <AnimatedRoutes  />
+              </Router>  
         </div>
-      </AuthContext>
     </ThemeProvider>
   )
 }

@@ -6,9 +6,9 @@ type ProtectedRouteProps = {
   redirectPath: string
 }
 
-export const ProtectedRoute = ({ isAllowed, redirectPath }: ProtectedRouteProps) => {
-  if (!isAllowed) {
-    return <Navigate to={redirectPath} replace />
-  }
+export const ProtectedRoute = () => {
+  // if (!isAllowed) {
+    // return <Navigate to={redirectPath} replace />
+  // }
   return <Outlet />
 }
