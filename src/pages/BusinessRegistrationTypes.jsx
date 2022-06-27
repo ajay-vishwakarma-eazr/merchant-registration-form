@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm, Controller } from 'react-hook-form'
+import '../assets/css/global.css'
 import {
   Alert,
   Button,
@@ -17,34 +16,20 @@ import {
   OutlinedInput,
   Typography,
 } from '@mui/material'
-import { AlternateEmail } from '@mui/icons-material'
-import { sendPasswordResetEmail } from 'firebase/auth'
-import { Auth } from '../auth/AuthContext'
-import { Navigate, NavLink } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
-import lottie from '../assets/lottie/SendingMail.json'
-
-const schema = yup
-  .object({
-    email: yup.string().required(),
-  })
-  .required()
-
+import lottie from '../assets/lottie/businesstype.json'
+import { NavLink } from 'react-router-dom'
 export const BusinessRegistrationTypes = () => {
-  const { auth, user } = React.useContext(Auth)
+  const [businessType, setBuinessTypes] = React.useState('')
   const {
     register,
     handleSubmit,
-    reset,
+    control,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  })
+  } = useForm()
 
-  const [showInfo, setShowInfo] = React.useState(false)
-
-  if (!!user) {
-    return <Navigate to={'/'} />
+  const handleChangeBuinessTypes = event => {
+    setBuinessTypes(event.target.value)
   }
 
   return (
@@ -54,106 +39,50 @@ export const BusinessRegistrationTypes = () => {
       </Grid>
 
       <form
-        onSubmit={handleSubmit(async ({ email }) => {
-          if (auth && Object.keys(errors).length === 0) {
-            setShowInfo(true)
-            await sendPasswordResetEmail(auth, email)
-            reset({ email: '' })
-          }
+        onSubmit={handleSubmit(data => {
+          console.log(data)
         })}>
         <Grid container direction={'column'} rowGap={5}>
-          <Link id="demo-simple-select-label" color={'white'} underline={'none'} href={'/business-details'}>
-            <Box
-              border={1}
-              borderColor="lightgrey"
-              height="50px"
-              paddingLeft="13px"
-              display="flex"
-              justifyContent="flex-start"
-              alignItems="center">
-              Not Yet Registered / Proprietorship
-            </Box>
-          </Link>
-
-          <FormControl fullWidth>
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{ color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              Registered Business
-            </InputLabel>
+          <FormControl error={!!errors['business-registration-type']}>
+            <InputLabel id="demo-simple-select-label">Registered Business</InputLabel>
             <Select
-              style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}
+            style={{textAlign:"left"}}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               inputProps={{ 'aria-label': 'Without label' }}
-              // value={age}
               label="Business Registration"
-              // onChange={handleChange}
-            >
-              <NavLink style={{ textDecoration: 'none', color: '#ffffff' }} to="/legal-information">
-                {' '}
-                <MenuItem value={10}>Private Limited</MenuItem>{' '}
-              </NavLink>
-              <NavLink style={{ textDecoration: 'none', color: '#ffffff' }} to="/legal-information">
-                {' '}
-                <MenuItem value={30}>Sole Proprietorship</MenuItem>
-              </NavLink>
-              <NavLink style={{ textDecoration: 'none', color: '#ffffff' }} to="/legal-information">
-                {' '}
-                <MenuItem value={40}>Limited Liability Partnership</MenuItem>
-              </NavLink>
-              <NavLink style={{ textDecoration: 'none', color: '#ffffff' }} to="/legal-information">
-                {' '}
-                <MenuItem value={20}>Public Limited</MenuItem>
-              </NavLink>
-              <NavLink style={{ textDecoration: 'none', color: '#ffffff' }} to="/legal-information">
-                {' '}
-                <MenuItem value={50}>One-Person Company</MenuItem>
-              </NavLink>
-              <NavLink style={{ textDecoration: 'none', color: '#ffffff' }} to="/legal-information">
-                {' '}
-                <MenuItem value={60}>Partnership Firm</MenuItem>
-              </NavLink>
+              name="business-registration-type"
+              autoFocus
+              value={businessType}
+              onChange={handleChangeBuinessTypes}>
+              <MenuItem defaultValue="" disabled>
+              
+                Choose
+              </MenuItem>
+              <MenuItem value={10}> Not Yet Registered</MenuItem>{' '}
+              <MenuItem value={20}>Private Limited</MenuItem>
+              <MenuItem value={30}>Sole Proprietorship</MenuItem>
             </Select>
+            {/* {!!errors['business-registration-type'] && (
+              <FormHelperText style={{ color: 'red' }}>{errors['business-registration-type']?.message}</FormHelperText>
+            )} */}
           </FormControl>
 
-          <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }}>
-            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/register">
-              {' '}
-              BACK{' '}
+          {businessType !== 10 ? (
+            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/legal-information">
+              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }} fullWidth>
+                Next
+              </Button>
             </NavLink>
-          </Button>
-
-          {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <Select
-        //   value={age}
-        //   onChange={handleChange}
-        //   displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Without label</FormHelperText>
-      </FormControl> */}
-
-          {/* <Grid container alignItems={'center'} justifyContent={'center'} gap={2}>
-            <Typography color={'gray'}>Already have an account?</Typography>
-            <Link underline={'none'} href={'/login'}>
-              <Typography>Next Page</Typography>
-            </Link>
-          </Grid> */}
+          ) : (
+            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/business-details">
+              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }} fullWidth>
+                Next
+              </Button>
+            </NavLink>
+          )}
         </Grid>
       </form>
-      {/* {showInfo && (
-        <Alert severity="info">
-          If a matching account was found, an email will be sent to allow you to reset your password.
-        </Alert>
-      )} */}
     </PageContainer>
   )
 }

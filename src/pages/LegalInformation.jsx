@@ -14,58 +14,37 @@ import {
   OutlinedInput,
   Typography,
 } from '@mui/material'
-import {
-  PersonOutlineOutlined,
-  PanoramaOutlined,
-  DocumentScannerOutlined,
-} from '@mui/icons-material'
+import { PersonOutlineOutlined, PanoramaOutlined, DocumentScannerOutlined } from '@mui/icons-material'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { Auth } from '../auth/AuthContext'
 import { Navigate, NavLink } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
-import lottie from '../assets/lottie/SendingMail.json'
+import lottie from '../assets/lottie/legalinformation.json'
+import styled from '@emotion/styled'
 
-const schema = yup
-  .object({
-    email: yup.string().required(),
-  })
-  .required()
 
 export const LegalInformation = () => {
-  const { auth, user } = React.useContext(Auth)
+
   const {
     register,
     handleSubmit,
-    reset,
+    control,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  })
-
-  const [showInfo, setShowInfo] = React.useState(false)
-
-  if (!!user) {
-    return <Navigate to={'/'} />
-  }
+  } = useForm()
 
   return (
     <PageContainer lottie={lottie}>
-      <Grid container direction={'column'} rowGap={1}>
+      
         <Typography variant={'h4'}>Legal Information</Typography>
-      </Grid>
-      <form
-        onSubmit={handleSubmit(async ({ email }) => {
-          if (auth && Object.keys(errors).length === 0) {
-            setShowInfo(true)
-            await sendPasswordResetEmail(auth, email)
-            reset({ email: '' })
-          }
+            <form
+        onSubmit={handleSubmit(data => {
+          console.log(data)
         })}>
         <Grid container direction={'column'} rowGap={4}>
-          <FormControl error={!!errors['Legal Business Name']} variant="outlined">
-            <InputLabel htmlFor={'Legal Business Name'}> Legal Business Name</InputLabel>
+          <FormControl error={!!errors['businesName']} variant="outlined">
+            <InputLabel htmlFor={'businesName'}>Legal Business Name</InputLabel>
             <OutlinedInput
-              id={'Legal Business Name'}
+              id={'businesName'}
               type={'text'}
               endAdornment={
                 <InputAdornment position="end">
@@ -73,35 +52,35 @@ export const LegalInformation = () => {
                 </InputAdornment>
               }
               label="Legal Business Name"
-              // {...register('email')}
+              {...register('businesName', { required: 'Enter legal buiness name' })}
             />
-            {!!errors['Legal Business Name'] && (
-              <FormHelperText id="Legal Business Name">{errors['Legal Business Name']?.message}</FormHelperText>
+            {!!errors['businesName'] && (
+              <FormHelperText id="businesName">{errors['businesName']?.message}</FormHelperText>
             )}
           </FormControl>
 
-          <FormControl error={!!errors['Business Pan']} variant="outlined">
-            <InputLabel htmlFor={'Business Pan'}>Business Pan</InputLabel>
+          <FormControl error={!!errors['businessPan']} variant="outlined">
+            <InputLabel htmlFor={'businessPan'}>Business PAN</InputLabel>
             <OutlinedInput
-              id={'Business Pan'}
-              type={'file'}
+              id={'businessPan'}
+              type={'text'}
               endAdornment={
                 <InputAdornment position="end">
                   <PanoramaOutlined />
                 </InputAdornment>
               }
-              label="Business Pan"
-              // {...register('email')}
+              label="Business PAN"
+              {...register('businessPan', { required: 'Enter Business PAN' })}
             />
-            {!!errors['Business Pan'] && (
-              <FormHelperText id="Business Pan">{errors['Business Pan']?.message}</FormHelperText>
+            {!!errors['businessPan'] && (
+              <FormHelperText id="businessPan">{errors['businessPan']?.message}</FormHelperText>
             )}
           </FormControl>
 
           <FormControl error={!!errors['Business GST No.']} variant="outlined">
-            <InputLabel htmlFor={'Business GST No.'}>Business GST No.</InputLabel>
+            <InputLabel htmlFor={'businessGST'}>Business GST No.</InputLabel>
             <OutlinedInput
-              id={'Business GST No.'}
+              id={'businessGST'}
               type={'text'}
               endAdornment={
                 <InputAdornment position="end">
@@ -109,62 +88,64 @@ export const LegalInformation = () => {
                 </InputAdornment>
               }
               label="Business GST No."
-              // {...register('email')}
+              {...register('businessGST')}
             />
-            {!!errors['Business GST No.'] && (
+            {/* {!!errors['Business GST No.'] && (
               <FormHelperText id="Business GST No.">{errors['Business GST No.']?.message}</FormHelperText>
-            )}
+            )} */}
           </FormControl>
 
-          <FormControl error={!!errors['Business Owner Name']} variant="outlined">
-            <InputLabel htmlFor={'Business Owner Name'}>Business Owner Name</InputLabel>
+          <FormControl error={!!errors['businessOwnerName']} variant="outlined">
+            <InputLabel htmlFor={'businessOwnerName'}>Business Owner Name</InputLabel>
             <OutlinedInput
-              id={'Business Owner Name'}
+              id={'businessOwnerName'}
               type={'text'}
               endAdornment={
                 <InputAdornment position="end">
                   <PersonOutlineOutlined />
                 </InputAdornment>
               }
-              label="Business Owner Name"
-              // {...register('email')}
+              label="businessOwnerName"
+              {...register('businessOwnerName', { required: 'Enter buiness owner name' })}
             />
-            {!!errors['Business Owner Name'] && (
-              <FormHelperText id="Business Owner Name">{errors['Business Owner Name']?.message}</FormHelperText>
+            {!!errors['businessOwnerName'] && (
+              <FormHelperText id="businessOwnerName">{errors['businessOwnerName']?.message}</FormHelperText>
             )}
           </FormControl>
 
-          <FormControl error={!!errors['Business Owner Pan']} variant="outlined">
-            <InputLabel htmlFor={'Business Owner Pan'}>Business Owner Pan</InputLabel>
+          <FormControl error={!!errors['businessOwnerPan']} variant="outlined">
+            <InputLabel htmlFor={'businessOwnerPan'}>Business Owner Pan</InputLabel>
             <OutlinedInput
-              id={'Business Owner Pan'}
-              type={'file'}
+              id={'businessOwnerPan'}
+              type={'text'}
               endAdornment={
                 <InputAdornment position="end">
                   <PanoramaOutlined />
                 </InputAdornment>
               }
-              label="Business Owner Pan"
-              // {...register('email')}
+              label="businessOwnerPan"
+              {...register('businessOwnerPan',{required:"Enter buiness owner pan"})}
             />
-            {!!errors['Business Owner Pan'] && (
-              <FormHelperText id="Business Owner Pan">{errors['Business Owner Pan']?.message}</FormHelperText>
+            {!!errors['businessOwnerPan'] && (
+              <FormHelperText id="businessOwnerPan">{errors['businessOwnerPan']?.message}</FormHelperText>
             )}
           </FormControl>
 
-          <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }}>
-            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/agreement">
-              {' '}
-              Next{' '}
+          <Grid container justifyContent={'space-between'}>
+            <NavLink
+              className="back-button"
+              style={{ textDecoration: 'none', color: 'black' }}
+              to="/business-registration-types">
+              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '170px' }}>
+                BACK
+              </Button> 
             </NavLink>
-          </Button>
-
-          <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }}>
-            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/business-registration-types">
-              {' '}
-              BACK{' '}
-            </NavLink>
-          </Button>
+            {/* <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/agreement"> */}
+              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '170px' }}>
+                Next
+              </Button>
+            {/* </NavLink> */}
+          </Grid>
         </Grid>
       </form>
     </PageContainer>

@@ -29,49 +29,26 @@ import { sendPasswordResetEmail } from 'firebase/auth'
 import { Auth } from '../auth/AuthContext'
 import { Navigate, NavLink } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
-import lottie from '../assets/lottie/SendingMail.json'
-
-const schema = yup
-  .object({
-    email: yup.string().required(),
-  })
-  .required()
+import lottie from '../assets/lottie/businessdetails.json'
 
 export const BusinessDetails = () => {
-  const { auth, user } = React.useContext(Auth)
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  })
-
-  const [showInfo, setShowInfo] = React.useState(false)
-
-  if (!!user) {
-    return <Navigate to={'/'} />
-  }
+  } = useForm()
 
   return (
     <PageContainer lottie={lottie}>
-      <Grid container direction={'column'} rowGap={1}>
         <Typography variant={'h4'}>Business Details</Typography>
-        {/* <Typography variant={'h6'} color={'gray'}>
-          We'll send you a link 
-        </Typography> */}
-      </Grid>
+     
 
       <form
-        onSubmit={handleSubmit(async ({ email }) => {
-          if (auth && Object.keys(errors).length === 0) {
-            setShowInfo(true)
-            await sendPasswordResetEmail(auth, email)
-            reset({ email: '' })
-          }
+        onSubmit={handleSubmit(data => {
+          console.log(data)
         })}>
-        <Grid container direction={'column'} rowGap={4}>
+        <Grid container direction={'column'} rowGap={3}>
           <FormControl error={!!errors['name']} variant="outlined">
             <InputLabel htmlFor={'name'}>Business Owner Name</InputLabel>
             <OutlinedInput
@@ -83,32 +60,31 @@ export const BusinessDetails = () => {
                 </InputAdornment>
               }
               label="Business Owner Name"
-              // {...register('email')}
+              {...register('name', { required: 'Please enter Business owner name' })}
             />
             {!!errors['name'] && <FormHelperText id="name">{errors['name']?.message}</FormHelperText>}
           </FormControl>
 
-          <FormControl error={!!errors['Owner Pan']} variant="outlined">
-            <InputLabel htmlFor={'Owner Pan'}>Business Owner Pan</InputLabel>
+          <FormControl error={!!errors['pan']} variant="outlined">
+            <InputLabel htmlFor={'pan'}>Business Owner PAN</InputLabel>
             <OutlinedInput
-              id={'Owner Pan'}
-              type={'file'}
-              shrink={true}
+              id={'pan'}
+              type={'text'}
               endAdornment={
                 <InputAdornment position="end">
                   <PanoramaOutlined />
                 </InputAdornment>
               }
-              label="Business Owner Pan"
-              // {...register('email')}
+              label="Business Owner PAN"
+              {...register('pan', { required: 'Please enter owner PAN' })}
             />
-            {!!errors['Owner Pan'] && <FormHelperText id="Owner Pan">{errors['Owner Pan']?.message}</FormHelperText>}
+            {!!errors['pan'] && <FormHelperText id={'pan'}>{errors['pan']?.message}</FormHelperText>}
           </FormControl>
 
-          <FormControl error={!!errors['name']} variant="outlined">
-            <InputLabel htmlFor={'name'}>Business Owner Aadhar No.</InputLabel>
+          <FormControl error={!!errors['aadharNo']} variant="outlined">
+            <InputLabel htmlFor={'aadharNo'}>Business Owner Aadhar No.</InputLabel>
             <OutlinedInput
-              id={'name'}
+              id={'aadharNo'}
               type={'text'}
               endAdornment={
                 <InputAdornment position="end">
@@ -116,47 +92,42 @@ export const BusinessDetails = () => {
                 </InputAdornment>
               }
               label="Business Owner Aadhar No."
-              // {...register('email')}
+              {...register('aadharNo', { required: 'Please enter Addhar No.' })}
             />
-            {!!errors['name'] && <FormHelperText id="name">{errors['name']?.message}</FormHelperText>}
+            {!!errors['aadharNo'] && <FormHelperText id="aadharNo">{errors['aadharNo']?.message}</FormHelperText>}
           </FormControl>
-
+          <FormControl error={!!errors['address']} variant="outlined" fullWidth>
+            <InputLabel htmlFor={'address'}>Address</InputLabel>
+            <OutlinedInput
+              id={'address'}
+              type={'text'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <HomeOutlined />
+                </InputAdornment>
+              }
+              label="address"
+              {...register('address', { required: 'Please enter address' })}
+            />
+            {!!errors['address'] && <FormHelperText id="address">{errors['address']?.message}</FormHelperText>}
+          </FormControl>
           <Grid container sx={{ direction: 'row' }}>
-            <FormControl error={!!errors['Address']} variant="outlined" sx={{ width: '48%' }}>
-              <InputLabel htmlFor={'Address'}>Address</InputLabel>
+            <FormControl error={!!errors['pincode']} variant="outlined" sx={{ width: '48%' }}>
+              <InputLabel htmlFor={'pincode'}>Pincode</InputLabel>
               <OutlinedInput
-                id={'Address'}
-                type={'text'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <HomeOutlined />
-                  </InputAdornment>
-                }
-                label="Address"
-                // {...register('email')}
-              />
-              {!!errors['Address'] && <FormHelperText id="Address">{errors['Address']?.message}</FormHelperText>}
-            </FormControl>
-
-            <FormControl error={!!errors['name']} variant="outlined" sx={{ width: '48%', marginLeft: '14px' }}>
-              <InputLabel htmlFor={'name'}>Pincode</InputLabel>
-              <OutlinedInput
-                id={'name'}
+                id={'pincode'}
                 type={'number'}
                 endAdornment={
                   <InputAdornment position="end">
                     <FormatListNumberedRtlOutlined />
                   </InputAdornment>
                 }
-                label="Pincode"
-                // {...register('email')}
+                label="pincode"
+                {...register('pincode', { required: 'Enter Pincode' })}
               />
-              {!!errors['name'] && <FormHelperText id="name">{errors['name']?.message}</FormHelperText>}
+              {!!errors['pincode'] && <FormHelperText id="pincode">{errors['pincode']?.message}</FormHelperText>}
             </FormControl>
-          </Grid>
-
-          <Grid container sx={{ direction: 'row' }}>
-            <FormControl error={!!errors['city']} variant="outlined" sx={{ width: '48%' }}>
+            <FormControl error={!!errors['city']} variant="outlined" sx={{ width: '48%', marginLeft: '12px' }}>
               <InputLabel htmlFor={'city'}>City</InputLabel>
               <OutlinedInput
                 id={'city'}
@@ -167,47 +138,53 @@ export const BusinessDetails = () => {
                   </InputAdornment>
                 }
                 label="City"
-                // {...register('email')}
+                {...register('city', { required: 'Enter city' })}
               />
-              {!!errors['city'] && <FormHelperText id="city">{errors['name']?.message}</FormHelperText>}
-            </FormControl>
-
-            <FormControl error={!!errors['name']} variant="outlined" sx={{ width: '48%', marginLeft: '14px' }}>
-              <InputLabel htmlFor={'name'}>State</InputLabel>
-              <OutlinedInput
-                id={'name'}
-                type={'name'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <FlagOutlined />
-                  </InputAdornment>
-                }
-                label="State"
-                // {...register('email')}
-              />
-              {!!errors['name'] && <FormHelperText id="name">{errors['name']?.message}</FormHelperText>}
+              {!!errors['city'] && <FormHelperText id="city">{errors['city']?.message}</FormHelperText>}
             </FormControl>
           </Grid>
 
-          <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }}>
-            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/agreement">
-              {' '}
-              NEXT{' '}
-            </NavLink>
-          </Button>
+          <FormControl error={!!errors['state']} variant="outlined" fullWidth>
+            <InputLabel htmlFor={'state'}>State</InputLabel>
+            <OutlinedInput
+              id={'state'}
+              type={'text'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <FlagOutlined />
+                </InputAdornment>
+              }
+              label="State"
+              {...register('state', { required: 'Enter state' })}
+            />
+            {!!errors['state'] && <FormHelperText>{errors['state']?.message}</FormHelperText>}
+          </FormControl>
 
-          <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }}>
-            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/business-registration-types">
-              {' '}
-              BACK{' '}
+          <Grid container justifyContent={'space-between'}>
+            <NavLink
+              className="back-button"
+              style={{ textDecoration: 'none', color: 'black' }}
+              to="/business-registration-types">
+              <Button
+                variant={'contained'}
+                type={'submit'}
+                size={'large'}
+                style={{ height: '56px', width: '170px' }}
+                fullWidth>
+                BACK
+              </Button>
             </NavLink>
-          </Button>
-
-          {/* <Grid container   justifyContent={'flex-end'} gap={2} width={'100%'}>
-            <Link underline={'none'} href={'/business-details'}>
-              <Typography sx={{ display:'flex',fontSize:'18px',  alignItems:'flex-end'}}>Next</Typography>
-            </Link>
-          </Grid> */}
+            {/* <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/agreement"> */}
+            <Button
+              variant={'contained'}
+              type={'submit'}
+              size={'large'}
+              style={{ height: '56px', width: '170px' }}
+              fullWidth>
+              NEXT
+            </Button>
+            {/* </NavLink> */}
+          </Grid>
         </Grid>
       </form>
     </PageContainer>

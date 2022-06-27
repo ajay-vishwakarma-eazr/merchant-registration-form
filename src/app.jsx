@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { AuthContext, Auth } from './auth/AuthContext'
 import CssBaseline from '@mui/material/CssBaseline'
 import { Button, createTheme, ThemeProvider } from '@mui/material'
 import {  useDetectTheme } from './hooks/useDetectTheme'
@@ -30,12 +29,6 @@ const App= () => {
             alignContent: 'center',
             backgroundColor: _theme.palette.background.default,
           }}>
-          {/* <Button
-            variant={'contained'}
-            onClick={() => setMode(last => (last === 'dark' ? 'light' : 'dark'))}
-            style={{ position: 'absolute', left: '50%', bottom: '30px', transform: 'translateX(-50%)' }}>
-            {_theme.palette.mode === 'dark' ? 'Light mode' : 'Dark mode'}
-          </Button> */}
          
               <Router>
                 <AnimatedRoutes  />

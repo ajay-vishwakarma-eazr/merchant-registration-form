@@ -1,30 +1,10 @@
 import * as React from 'react'
-import { Grid, Theme, useMediaQuery, useTheme } from '@mui/material'
+import { Grid, useMediaQuery, useTheme } from '@mui/material'
 import { css, cx } from '@emotion/css'
 import Lottie from 'lottie-react'
 import { motion } from 'framer-motion'
 import Color from 'color'
-
-export type LottieProps = {
-  v: string
-  fr: number
-  ip: number
-  op: number
-  w: number
-  h: number
-  nm: string
-  ddd: number
-  assets: any
-  layers: any
-  markers: any
-}
-
-type PageContainerProps = {
-  children: React.ReactNode
-  lottie: LottieProps
-}
-
-export const PageContainer = ({ children, lottie }: PageContainerProps) => {
+export const PageContainer = ({ children, lottie }) => {
   const theme = useTheme()
   const styles = useStyles(theme)
 
@@ -65,24 +45,27 @@ export const PageContainer = ({ children, lottie }: PageContainerProps) => {
   ) : null
 }
 
-const useStyles = (theme: Theme) => ({
+const useStyles = theme => ({
   root: css`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 700px;
+    min-height: 610px;
     max-width: 1200px;
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.1);
     border-radius: 24px;
+    margin: 5% 0 5% 0;
   `,
+
   left: css`
     background-color: ${theme.palette.primary.main};
     border-radius: 24px 0 0 24px;
     display: flex;
     align-items: center;
-    overflow: hidden;
-
+    justify-content: center;
     > * {
-      transform: scale(1.4);
+      transform: scale(1.7);
+      width: 50%;
+      height: 50%;
     }
   `,
   container: css`
@@ -96,8 +79,8 @@ const useStyles = (theme: Theme) => ({
   `,
   isMobile: css`
     grid-template-columns: 1fr;
-    width: 100vw;
-    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
     max-width: unset;
     max-height: unset;
   `,
