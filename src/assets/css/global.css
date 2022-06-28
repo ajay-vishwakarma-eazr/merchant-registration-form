@@ -1,13 +1,24 @@
 .css-12l75x7-MuiGrid-root{
     justify-content: center !important;
 }
+.success-container{
+    position: relative;
+}
+.success-animation{
+position: absolute;
+z-index: 10;
+top:0px;
+left: 0px;
+width:100vw;
+height: 310px;
+transform: scale(3);
 
+}
 @media only screen and (max-width: 420px) {
 .otp-box{
     margin: 0px 0.2rem;
 }
 }
-
 
 @media only screen and (max-width: 510px) {
 

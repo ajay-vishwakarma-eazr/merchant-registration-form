@@ -1,15 +1,12 @@
 import {
   CHECK_LOGIN,
   LOGIN_PARTNER_SUCCESSFUL,
-  API_ERROR,
   LOGOUT_PARTNER,
   LOGOUT_PARTNER_SUCCESS,
   OTP_SENT,
   OTP_SENT_FAILED,
   LOGOUT_PARTNER_FAILED,
   LOGIN_LOADING,
-  SHOW_OTP_MODAL,
-  HIDE_OTP_MODAL,
   LOGIN_PARTNER_FAILED,
   VERIFY_LOADING,
   SET_CURRENT_PARTNER,
@@ -24,7 +21,6 @@ const initialState = {
   partner: [],
   error: [],
   message: [],
-  showOtpModal: false,
 }
 
 const authLogin = (state = initialState, action) => {
@@ -40,18 +36,6 @@ const authLogin = (state = initialState, action) => {
         ...state,
         errors: {},
         verifyLoading: true,
-      }
-    case SHOW_OTP_MODAL:
-      return {
-        ...state,
-        loading: false,
-        showOtpModal: true,
-      }
-    case HIDE_OTP_MODAL:
-      return {
-        ...state,
-        loading: false,
-        showOtpModal: false,
       }
     case OTP_SENT:
       return {
@@ -122,13 +106,6 @@ const authLogin = (state = initialState, action) => {
     case LOGOUT_PARTNER_FAILED:
       return { ...state, loading: false, errors: action.payload }
 
-    case API_ERROR:
-      state = {
-        ...state,
-        loading: false,
-        loginError: action.payload,
-      }
-      break
 
     case CLEAR_ERROR:
       return {

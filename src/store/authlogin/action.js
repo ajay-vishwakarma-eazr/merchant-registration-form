@@ -1,17 +1,12 @@
 import {
   CHECK_LOGIN,
   LOGIN_PARTNER_SUCCESSFUL,
-  API_ERROR,
-  LOGOUT_PARTNER,
-  LOGOUT_PARTNER_SUCCESS,
   LOGIN_LOADING,
   OTP_SENT,
   OTP_SENT_FAILED,
   LOGIN_PARTNER_FAILED,
-  SHOW_OTP_MODAL,
-  HIDE_OTP_MODAL,
+  
   VERIFY_LOADING,
-  SET_CURRENT_PARTNER,
   REGISTER_PARTNER_SUCCESS,
   REGISTER_PARTNER_FAILED,
   REGISTER_PARTNER_LOADING,
@@ -126,10 +121,10 @@ export const resend = (phone, otp) => {
   }
 }
 
-export const loginPartnerSuccessful = PARTNER => {
+export const loginPartnerSuccessful = partner => {
   return {
     type: LOGIN_PARTNER_SUCCESSFUL,
-    payload: PARTNER,
+    payload: partner,
   }
 }
 
@@ -139,17 +134,7 @@ export const setLoginLoading = () => {
   }
 }
 
-export const showOtpModal = () => {
-  return {
-    type: SHOW_OTP_MODAL,
-  }
-}
 
-export const hideOtpModal = () => {
-  return {
-    type: HIDE_OTP_MODAL,
-  }
-}
 
 export const clearError = () => {
   return {

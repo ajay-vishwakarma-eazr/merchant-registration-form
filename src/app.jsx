@@ -1,11 +1,11 @@
 import * as React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { Button, createTheme, ThemeProvider } from '@mui/material'
-import {  useDetectTheme } from './hooks/useDetectTheme'
+import { useDetectTheme } from './hooks/useDetectTheme'
 import { AnimatedRoutes } from './components/AnimatedRoutes'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-const App= () => {
+const App = () => {
   const systemTheme = useDetectTheme()
   const [mode, setMode] = React.useState('dark')
   const _theme = React.useMemo(
@@ -21,19 +21,18 @@ const App= () => {
   return (
     <ThemeProvider theme={_theme}>
       <CssBaseline />
-        <div
-          style={{
-            display: 'grid',
-            height: '100vh',
-            justifyContent: 'center',
-            alignContent: 'center',
-            backgroundColor: _theme.palette.background.default,
-          }}>
-         
-              <Router>
-                <AnimatedRoutes  />
-              </Router>  
-        </div>
+      <div
+        style={{
+          display: 'grid',
+          height: '100vh',
+          justifyContent: 'center',
+          alignContent: 'center',
+          backgroundColor: _theme.palette.background.default,
+        }}>
+        <Router>
+          <AnimatedRoutes />
+        </Router>
+      </div>
     </ThemeProvider>
   )
 }

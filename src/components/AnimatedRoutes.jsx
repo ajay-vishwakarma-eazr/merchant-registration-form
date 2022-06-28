@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
-import { HomePage, LoginPage, RegisterPage } from '../pages'
+import { Route, Routes} from 'react-router-dom'
+import {LoginPage, RegisterPage } from '../pages'
 import { AnimatePresence } from 'framer-motion'
 import { OTPpage } from '../pages/OTPpage'
 import { LegalInformation } from '../pages/LegalInformation'
@@ -8,12 +8,13 @@ import {BusinessRegistrationTypes } from '../pages/BusinessRegistrationTypes'
 import { AgreementPage } from '../pages/AgreementPage'
 import { BusinessDetails } from '../pages/BusinessDetails'
 import { RegisterSuccess } from '../pages/RegisterSuccess'
-
+import { useDispatch, useSelector } from 'react-redux'
 export const AnimatedRoutes = () => {
-  const location = useLocation()
+  const { message } = useSelector(state => state.login)
+  const isAuth=false;
   return (
     <AnimatePresence>
-      <Routes location={location} key={location.pathname}>
+      <Routes>
         <Route path={'/login'} element={<LoginPage />} />
         <Route path={'/otp/:contactNumber'} element={<OTPpage />} />
         <Route path={'/register'} element={<RegisterPage />} />
