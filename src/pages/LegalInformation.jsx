@@ -15,8 +15,6 @@ import {
   Typography,
 } from '@mui/material'
 import { PersonOutlineOutlined, PanoramaOutlined, DocumentScannerOutlined } from '@mui/icons-material'
-import { sendPasswordResetEmail } from 'firebase/auth'
-import { Auth } from '../auth/AuthContext'
 import { Navigate, NavLink } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/legalinformation.json'

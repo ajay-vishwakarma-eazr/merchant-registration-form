@@ -17,17 +17,7 @@ import {
   OutlinedInput,
   Typography,
 } from '@mui/material'
-import {
-  AlternateEmail,
-  EditOutlined,
-  FlagOutlined,
-  FormatListNumberedOutlined,
-  FormatListNumberedRtlOutlined,
-  HomeOutlined,
-  LocationCityOutlined,
-} from '@mui/icons-material'
-import { sendPasswordResetEmail } from 'firebase/auth'
-import { Auth } from '../auth/AuthContext'
+
 import { Navigate, NavLink, useNavigate } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/agreement.json'

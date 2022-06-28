@@ -1,7 +1,5 @@
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import {
   Alert,
   Button,
@@ -25,8 +23,7 @@ import {
   PanoramaOutlined,
   DraftsOutlined,
 } from '@mui/icons-material'
-import { sendPasswordResetEmail } from 'firebase/auth'
-import { Auth } from '../auth/AuthContext'
+
 import { Navigate, NavLink } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/businessdetails.json'

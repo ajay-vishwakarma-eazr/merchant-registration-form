@@ -15,6 +15,7 @@ export const AnimatedRoutes = () => {
   return (
     <AnimatePresence>
       <Routes>
+        <Route path={'/'} element={<LoginPage />} />
         <Route path={'/login'} element={<LoginPage />} />
         <Route path={'/otp/:contactNumber'} element={<OTPpage />} />
         <Route path={'/register'} element={<RegisterPage />} />

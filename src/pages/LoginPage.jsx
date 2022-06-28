@@ -74,7 +74,11 @@ export const LoginPage = () => {
                   </InputAdornment>
                 }
                 label="Phone Number"
-                {...register('contactNumber', { required: 'Please enter your phone number', maxLength: 10 })}
+                {...register('contactNumber', {
+                  required: 'Please enter your phone number',
+                  minLength: {value:10, message: 'Enter 10 digit number' },
+                  maxLength: {value:10, message: 'Enter 10 digit number' },
+                })}
               />
               {!!errors['contactNumber'] && <FormHelperText>{errors['contactNumber']?.message}</FormHelperText>}
             </FormControl>
@@ -98,4 +102,3 @@ export const LoginPage = () => {
   return <>{data}</>
 }
 
-// 8767843325
