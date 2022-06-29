@@ -29,7 +29,7 @@ export const AgreementPage = () => {
     reset,
     formState: { errors },
   } = useForm()
-const history=useNavigate();
+  const history = useNavigate()
 
   return (
     <PageContainer lottie={lottie}>
@@ -46,8 +46,8 @@ const history=useNavigate();
 
       <form
         onSubmit={handleSubmit(data => {
-          if(data){
-history('/registered-sucessful')
+          if (data) {
+            history('/registered-sucessful')
           }
         })}>
         <FormControl error={!!errors['checkbox']}>
@@ -67,14 +67,14 @@ history('/registered-sucessful')
           </FormGroup>
         </FormControl>
         <Grid container direction={'column'} rowGap={5}>
-            <Button
-              variant={'contained'}
-              type={'submit'}
-              size={'large'}
-              style={{ height: '56px', marginTop: '15px' }}
-              fullWidth>
-              SUBMIT
-            </Button>
+          <Button
+            variant={'contained'}
+            type={'submit'}
+            size={'large'}
+            style={{ height: '56px', marginTop: '15px' }}
+            fullWidth>
+            SUBMIT
+          </Button>
         </Grid>
       </form>
     </PageContainer>

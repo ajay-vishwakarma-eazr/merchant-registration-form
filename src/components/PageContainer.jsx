@@ -7,12 +7,9 @@ import Color from 'color'
 export const PageContainer = ({ children, lottie }) => {
   const theme = useTheme()
   const styles = useStyles(theme)
-
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'))
-
   const [isLoading, setIsLoading] = React.useState(true)
-
   React.useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)
@@ -36,7 +33,7 @@ export const PageContainer = ({ children, lottie }) => {
         flexWrap={'nowrap'}
         rowGap={5}
         paddingY={5}
-        paddingX={isTablet ? 10 : 15}
+        paddingX={isTablet ? 10 : isMobile ? 5 : 15}
         textAlign={'center'}
         className={styles.container}>
         {children}

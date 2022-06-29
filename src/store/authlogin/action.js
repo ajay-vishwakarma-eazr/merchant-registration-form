@@ -5,7 +5,6 @@ import {
   OTP_SENT,
   OTP_SENT_FAILED,
   LOGIN_PARTNER_FAILED,
-  
   VERIFY_LOADING,
   REGISTER_PARTNER_SUCCESS,
   REGISTER_PARTNER_FAILED,
@@ -19,6 +18,8 @@ import axios from 'axios'
 import setAuthToken from '../../utils/setAuthToken'
 import jwt_decode from 'jwt-decode'
 import { ip } from '../../config/config'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 // export const checkLogin = (PARTNER, history) => {
 //   return {
 //     type: CHECK_LOGIN,
@@ -78,7 +79,6 @@ export const verify = (contactNumber, otp, history) => async dispatch => {
       window.open('https://partner.eazr.in/login')
     }
 
-
     // if (res.data.admin !== null) {
     //   const { accessToken } = res.data.admin
     //   localStorage.setItem('accessToken', accessToken)
@@ -97,7 +97,6 @@ export const verify = (contactNumber, otp, history) => async dispatch => {
     if (error.response.data?.message === 'Partner Not Registered') {
       history('/register')
     }
-    
   }
 }
 
@@ -133,8 +132,6 @@ export const setLoginLoading = () => {
     type: LOGIN_LOADING,
   }
 }
-
-
 
 export const clearError = () => {
   return {

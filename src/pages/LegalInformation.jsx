@@ -1,7 +1,5 @@
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import {
   Alert,
   Button,
@@ -15,28 +13,25 @@ import {
   Typography,
 } from '@mui/material'
 import { PersonOutlineOutlined, PanoramaOutlined, DocumentScannerOutlined } from '@mui/icons-material'
-import { Navigate, NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/legalinformation.json'
-import styled from '@emotion/styled'
-
 
 export const LegalInformation = () => {
-
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
   } = useForm()
-
+  const history = useNavigate()
   return (
     <PageContainer lottie={lottie}>
-      
-        <Typography variant={'h4'}>Legal Information</Typography>
-            <form
+      <Typography variant={'h4'}>Legal Information</Typography>
+      <form
         onSubmit={handleSubmit(data => {
           console.log(data)
+          history('/agreement')
         })}>
         <Grid container direction={'column'} rowGap={4}>
           <FormControl error={!!errors['businesName']} variant="outlined">
@@ -122,7 +117,7 @@ export const LegalInformation = () => {
                 </InputAdornment>
               }
               label="businessOwnerPan"
-              {...register('businessOwnerPan',{required:"Enter buiness owner pan"})}
+              {...register('businessOwnerPan', { required: 'Enter buiness owner pan' })}
             />
             {!!errors['businessOwnerPan'] && (
               <FormHelperText id="businessOwnerPan">{errors['businessOwnerPan']?.message}</FormHelperText>
@@ -136,12 +131,12 @@ export const LegalInformation = () => {
               to="/business-registration-types">
               <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '170px' }}>
                 BACK
-              </Button> 
+              </Button>
             </NavLink>
             {/* <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/agreement"> */}
-              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '170px' }}>
-                Next
-              </Button>
+            <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '170px' }}>
+              Next
+            </Button>
             {/* </NavLink> */}
           </Grid>
         </Grid>

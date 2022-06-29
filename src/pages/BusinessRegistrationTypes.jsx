@@ -18,19 +18,24 @@ import {
 } from '@mui/material'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/businesstype.json'
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import ClipLoader from 'react-spinners/ClipLoader'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPartnerTypes } from '../store/partnerTypes/action'
 export const BusinessRegistrationTypes = () => {
-  const [businessType, setBuinessTypes] = React.useState('')
   const {
     register,
     handleSubmit,
     control,
+    getValues,
     formState: { errors },
   } = useForm()
-
-  const handleChangeBuinessTypes = event => {
-    setBuinessTypes(event.target.value)
-  }
+  const dispatch = useDispatch()
+  const { partnerTypes, loading } = useSelector(state => state.partnerTypes)
+  const history = useNavigate()
+  React.useEffect(() => {
+    dispatch(getPartnerTypes())
+  }, [])
 
   return (
     <PageContainer lottie={lottie}>
@@ -40,47 +45,46 @@ export const BusinessRegistrationTypes = () => {
 
       <form
         onSubmit={handleSubmit(data => {
-          console.log(data)
+          const id = getValues('types')
+          if (id === 41) {
+            history('/business-details')
+          } else {
+            history('/legal-information')
+          }
         })}>
         <Grid container direction={'column'} rowGap={5}>
-          <FormControl error={!!errors['business-registration-type']}>
-            <InputLabel id="demo-simple-select-label">Registered Business</InputLabel>
-            <Select
-            style={{textAlign:"left"}}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              inputProps={{ 'aria-label': 'Without label' }}
-              label="Business Registration"
-              name="business-registration-type"
-              autoFocus
-              value={businessType}
-              onChange={handleChangeBuinessTypes}>
-              <MenuItem defaultValue="" disabled>
-              
-                Choose
-              </MenuItem>
-              <MenuItem value={10}> Not Yet Registered</MenuItem>{' '}
-              <MenuItem value={20}>Private Limited</MenuItem>
-              <MenuItem value={30}>Sole Proprietorship</MenuItem>
-            </Select>
-            {/* {!!errors['business-registration-type'] && (
-              <FormHelperText style={{ color: 'red' }}>{errors['business-registration-type']?.message}</FormHelperText>
-            )} */}
-          </FormControl>
-
-          {businessType !== 10 ? (
-            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/legal-information">
-              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }} fullWidth>
-                Next
-              </Button>
-            </NavLink>
+          {loading === true ? (
+            <ClipLoader color="#bbbbbb" size={60} />
           ) : (
-            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/business-details">
-              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }} fullWidth>
-                Next
-              </Button>
-            </NavLink>
+            <FormControl error={!!errors['types']} variant="outlined">
+              <InputLabel htmlFor={'types'}>Business Types</InputLabel>
+              <Controller
+                render={props => (
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="types"
+                    style={{ textAlign: 'left' }}
+                    label="Business Types"
+                    defaultValue=""
+                    {...register('types', { required: 'Please choose one' })}>
+                    {partnerTypes.map((items, index) => {
+                      return (
+                        <MenuItem key={index} value={items.id}>
+                          {items.type}
+                        </MenuItem>
+                      )
+                    })}
+                  </Select>
+                )}
+                name="types"
+                control={control}
+              />
+              {!!errors['types'] && <FormHelperText>{errors['types']?.message}</FormHelperText>}
+            </FormControl>
           )}
+          <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }} fullWidth>
+            Next
+          </Button>
         </Grid>
       </form>
     </PageContainer>

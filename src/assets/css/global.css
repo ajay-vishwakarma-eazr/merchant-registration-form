@@ -1,6 +1,9 @@
 .css-12l75x7-MuiGrid-root{
     justify-content: center !important;
 }
+.css-6hp17o-MuiList-root-MuiMenu-list{
+    height: 200px !important;
+}
 .success-container{
     position: relative;
 }
@@ -15,8 +18,9 @@ transform: scale(3);
 
 }
 @media only screen and (max-width: 420px) {
-.otp-box{
-    margin: 0px 0.2rem;
+.css-m9r77w-MuiGrid-root{
+    padding-left:34px !important;
+    padding-right: 34px !important;
 }
 }
 

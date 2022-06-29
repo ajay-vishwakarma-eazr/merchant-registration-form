@@ -24,7 +24,7 @@ import {
   DraftsOutlined,
 } from '@mui/icons-material'
 
-import { Navigate, NavLink } from 'react-router-dom'
+import { Navigate, NavLink, useNavigate } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/businessdetails.json'
 
@@ -35,15 +35,14 @@ export const BusinessDetails = () => {
     reset,
     formState: { errors },
   } = useForm()
-
+  const history = useNavigate()
   return (
     <PageContainer lottie={lottie}>
-        <Typography variant={'h4'}>Business Details</Typography>
-     
+      <Typography variant={'h4'}>Business Details</Typography>
 
       <form
         onSubmit={handleSubmit(data => {
-          console.log(data)
+          history('/agreement')
         })}>
         <Grid container direction={'column'} rowGap={3}>
           <FormControl error={!!errors['name']} variant="outlined">
@@ -82,7 +81,7 @@ export const BusinessDetails = () => {
             <InputLabel htmlFor={'aadharNo'}>Business Owner Aadhar No.</InputLabel>
             <OutlinedInput
               id={'aadharNo'}
-              type={'text'}
+              type={'number'}
               endAdornment={
                 <InputAdornment position="end">
                   <DraftsOutlined />
@@ -120,7 +119,11 @@ export const BusinessDetails = () => {
                   </InputAdornment>
                 }
                 label="pincode"
-                {...register('pincode', { required: 'Enter Pincode' })}
+                {...register('pincode', {
+                  required: 'Enter Pincode',
+                  maxLength: { value: 6, message: 'Enter valid pincode' },
+                  minLength: { value: 6, message: 'Enter valid pincode' },
+                })}
               />
               {!!errors['pincode'] && <FormHelperText id="pincode">{errors['pincode']?.message}</FormHelperText>}
             </FormControl>
@@ -171,7 +174,7 @@ export const BusinessDetails = () => {
                 BACK
               </Button>
             </NavLink>
-            {/* <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/agreement"> */}
+
             <Button
               variant={'contained'}
               type={'submit'}
@@ -180,7 +183,6 @@ export const BusinessDetails = () => {
               fullWidth>
               NEXT
             </Button>
-            {/* </NavLink> */}
           </Grid>
         </Grid>
       </form>

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Controller, useForm } from 'react-hook-form'
+
 import {
   Box,
   Button,
@@ -21,13 +22,13 @@ import {
 } from '@mui/material'
 import { AlternateEmail, Lock, LockOpen, Language, Person } from '@mui/icons-material'
 import DescriptionIcon from '@mui/icons-material/Description'
-import { Navigate, NavLink } from 'react-router-dom'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { Navigate, NavLink, useNavigate } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/brandinformation.json'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getPartnerCategory } from '../store/partnerCategory/action'
+import ClipLoader from 'react-spinners/ClipLoader'
 export const RegisterPage = props => {
   const {
     register,
@@ -35,27 +36,23 @@ export const RegisterPage = props => {
     control,
     formState: { errors },
   } = useForm()
+  const dispatch = useDispatch()
+  const { partnerCategory, loading } = useSelector(state => state.partnerCategory)
+const history=useNavigate();
+  useEffect(() => {
+    dispatch(getPartnerCategory())
+  }, [])
 
-  const [businessCategory, setBusinessCategory] = React.useState('')
-  const [orderValue, setOrderValue] = React.useState('')
-
-  const handleChangeBusinessCategory = event => {
-    setBusinessCategory(event.target.value)
+  const onSubmit = data => {
+    console.log(data)
+    history('/business-registration-types')
   }
-
-  const handleChangeAverageOrderValue = event => {
-    setOrderValue(event.target.value)
-  }
-
   return (
     <PageContainer lottie={lottie}>
       <Grid container direction={'column'} rowGap={1}>
         <Typography variant={'h4'}>Brand Information</Typography>
       </Grid>
-      <form
-        onSubmit={handleSubmit(data => {
-          data
-        })}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container direction={'column'} rowGap={2}>
           <FormControl error={!!errors['email']} variant="outlined">
             <InputLabel htmlFor={'email'}>Work mail</InputLabel>
@@ -88,32 +85,37 @@ export const RegisterPage = props => {
             {!!errors['name'] && <FormHelperText>{errors['name']?.message}</FormHelperText>}
           </FormControl>
 
-          <FormControl error={!!errors['category']} variant="outlined">
-            <InputLabel htmlFor={'category'}>Business Category</InputLabel>
-            <Controller
-              render={props => (
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="category"
-                  style={{ textAlign: 'left' }}
-                  value={businessCategory}
-                  label="Business Category"
-                  onChange={handleChangeBusinessCategory}>
-                  <MenuItem defaultValue="" disabled>
-                    Choose
-                  </MenuItem>
-                  <MenuItem value="10"> Pharmaceutical</MenuItem>
-                  <MenuItem value="20">Product- Nutrition</MenuItem>
-                </Select>
-              )}
-              name="category"
-              control={control}
-              rules={{ required: 'Please choose one' }}
-            />
-            {!!errors['category'] && <FormHelperText>{errors['category']?.message}</FormHelperText>}
-          </FormControl>
+          {loading === true ? (
+            <ClipLoader color="#bbbbbb" size={60} />
+          ) : (
+            <FormControl error={!!errors['category']} variant="outlined">
+              <InputLabel htmlFor={'category'}>Business Category</InputLabel>
+              <Controller
+                render={props => (
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="category"
+                    style={{ textAlign: 'left' }}
+                    label="Business Category"
+                    defaultValue=""
+                    {...register('category', { required: 'Please choose one' })}>
+                    {partnerCategory.map((items, index) => {
+                      return (
+                        <MenuItem key={index} value={items.id}>
+                          {items.name}
+                        </MenuItem>
+                      )
+                    })}
+                  </Select>
+                )}
+                name="category"
+                control={control}
+              />
+              {!!errors['category'] && <FormHelperText>{errors['category']?.message}</FormHelperText>}
+            </FormControl>
+          )}
           <FormControl error={!!errors['website']} variant="outlined">
-            <InputLabel htmlFor={'website'}>Business website</InputLabel>
+            <InputLabel htmlFor={'website'}>Business website url</InputLabel>
             <OutlinedInput
               id={'website'}
               type={'text'}
@@ -136,21 +138,17 @@ export const RegisterPage = props => {
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   style={{ textAlign: 'left' }}
-                  value={props.value}
                   label="Average Order Value"
-                  onChange={props.onChange}>
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value="a"> ₹1-₹500</MenuItem>
-                  <MenuItem value="b">₹501-₹1000</MenuItem>
-                  <MenuItem value={30}> ₹1001-₹3000</MenuItem>
-                  <MenuItem value={30}> ₹3001-₹5000</MenuItem>
+                  {...register('order', { required: 'Please select one' })}
+                  defaultValue="">
+                  <MenuItem value="₹1-₹500"> ₹1-₹500</MenuItem>
+                  <MenuItem value="₹501-₹1000">₹501-₹1000</MenuItem>
+                  <MenuItem value={'₹1001-₹3000'}> ₹1001-₹3000</MenuItem>
+                  <MenuItem value={'₹3001-₹5000'}> ₹3001-₹5000</MenuItem>
                 </Select>
               )}
               name="order"
               control={control}
-              rules={{ required: 'Please choose one' }}
             />
             {!!errors['order'] && <FormHelperText id="order">{errors['order']?.message}</FormHelperText>}
           </FormControl>
@@ -158,17 +156,20 @@ export const RegisterPage = props => {
           <FormControl error={!!errors['checkbox']}>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox name="checkbox" defaultChecked />}
+                control={<Checkbox name="checkbox" />}
                 label="On website"
+                value="On website"
                 {...register('checkbox', { required: 'please check one' })}
               />
               <FormControlLabel
                 control={<Checkbox name="checkbox" />}
                 label="Mobile application"
+                value="Mobile application"
                 {...register('checkbox', { required: 'please check one' })}
               />
               <FormControlLabel
                 control={<Checkbox name="checkbox" />}
+                value="At store location"
                 label="At store location"
                 {...register('checkbox', { required: 'please check one' })}
               />
@@ -188,7 +189,7 @@ export const RegisterPage = props => {
                   <DescriptionIcon />
                 </InputAdornment>
               }
-              {...register('description', { required: 'Please enter description', maxLength: 50 })}
+              {...register('description', { required: 'Please enter description', maxLength:{value:50,message:"Maximum 50 words are allowed"} })}
             />
             {!!errors['description'] && (
               <FormHelperText id="description">{errors['description']?.message}</FormHelperText>

@@ -24,6 +24,7 @@ export const AnimatedRoutes = () => {
         <Route path={'/business-details'} element={<BusinessDetails />} />
         <Route path={'/legal-information'} element={<LegalInformation />} />
         <Route path={'/agreement'} element={<AgreementPage />} />
+      {/* <ProtectedRoutes path="/agreement" component={AgreementPage}/> */}
       </Routes>
     </AnimatePresence>
   )

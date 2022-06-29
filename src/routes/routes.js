@@ -6,7 +6,7 @@ import { OTPpage } from "../pages/OTPpage";
 import { RegisterSuccess } from "../pages/RegisterSuccess";
 
 const authProtectedRoutes = [
-  { path: '/otp', component: OTPpage },
+ 
   { path: '/register', component: RegisterPage },
   { path: '/business-registration-types', component: BusinessRegistrationTypes },
   { path: '/business-details', component: BusinessDetails },
@@ -15,9 +15,10 @@ const authProtectedRoutes = [
   { path: '/registered-successful', component: RegisterSuccess },
 ]
 
-const publicRoutes=[
-    {path:"/",component:LoginPage},
-    {path:"/login",component:LoginPage}
+const publicRoutes = [
+  { path: '/', component: LoginPage },
+  { path: '/login', component: LoginPage },
+  { path: '/otp/:contactNumber', component: OTPpage },
 ]
 
 export {authProtectedRoutes,publicRoutes}
