@@ -68,6 +68,7 @@ export const LoginPage = () => {
                 id={'contactNumber'}
                 type={'number'}
                 autoFocus
+                autoComplete='off'
                 endAdornment={
                   <InputAdornment position="end">
                     <LocalPhone />
@@ -76,8 +77,8 @@ export const LoginPage = () => {
                 label="Phone Number"
                 {...register('contactNumber', {
                   required: 'Please enter your phone number',
-                  minLength: {value:10, message: 'Enter 10 digit number' },
-                  maxLength: {value:10, message: 'Enter 10 digit number' },
+                  minLength: { value: 10, message: 'Enter 10 digit number' },
+                  maxLength: { value: 10, message: 'Enter 10 digit number' },
                 })}
               />
               {!!errors['contactNumber'] && <FormHelperText>{errors['contactNumber']?.message}</FormHelperText>}
@@ -101,4 +102,3 @@ export const LoginPage = () => {
 
   return <>{data}</>
 }
-

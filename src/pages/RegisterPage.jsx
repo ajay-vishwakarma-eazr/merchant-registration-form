@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getPartnerCategory } from '../store/partnerCategory/action'
 import ClipLoader from 'react-spinners/ClipLoader'
+import { checkPage } from '../store/registerPartner/action'
 export const RegisterPage = props => {
   const {
     register,
@@ -38,13 +39,15 @@ export const RegisterPage = props => {
   } = useForm()
   const dispatch = useDispatch()
   const { partnerCategory, loading } = useSelector(state => state.partnerCategory)
-const history=useNavigate();
+  const history = useNavigate()
   useEffect(() => {
     dispatch(getPartnerCategory())
   }, [])
 
   const onSubmit = data => {
-    console.log(data)
+    console.log(JSON.stringify(data))
+    const formCompleted = 'brand-page-completed'
+    dispatch(checkPage(formCompleted))
     history('/business-registration-types')
   }
   return (
@@ -59,6 +62,7 @@ const history=useNavigate();
             <OutlinedInput
               id={'email'}
               type={'email'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <AlternateEmail />
@@ -74,6 +78,7 @@ const history=useNavigate();
             <OutlinedInput
               id={'name'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <Person />
@@ -119,6 +124,7 @@ const history=useNavigate();
             <OutlinedInput
               id={'website'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <Language />
@@ -141,8 +147,8 @@ const history=useNavigate();
                   label="Average Order Value"
                   {...register('order', { required: 'Please select one' })}
                   defaultValue="">
-                  <MenuItem value="₹1-₹500"> ₹1-₹500</MenuItem>
-                  <MenuItem value="₹501-₹1000">₹501-₹1000</MenuItem>
+                  <MenuItem value={'₹1-₹500'}> ₹1-₹500</MenuItem>
+                  <MenuItem value={'₹501-₹1000'}>₹501-₹1000</MenuItem>
                   <MenuItem value={'₹1001-₹3000'}> ₹1001-₹3000</MenuItem>
                   <MenuItem value={'₹3001-₹5000'}> ₹3001-₹5000</MenuItem>
                 </Select>
@@ -153,35 +159,35 @@ const history=useNavigate();
             {!!errors['order'] && <FormHelperText id="order">{errors['order']?.message}</FormHelperText>}
           </FormControl>
 
-          <FormControl error={!!errors['checkbox']}>
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox name="checkbox" />}
-                label="On website"
-                value="On website"
-                {...register('checkbox', { required: 'please check one' })}
-              />
-              <FormControlLabel
-                control={<Checkbox name="checkbox" />}
-                label="Mobile application"
-                value="Mobile application"
-                {...register('checkbox', { required: 'please check one' })}
-              />
-              <FormControlLabel
-                control={<Checkbox name="checkbox" />}
-                value="At store location"
-                label="At store location"
-                {...register('checkbox', { required: 'please check one' })}
-              />
-              {!!errors['checkbox'] && <FormHelperText>{errors['checkbox']?.message}</FormHelperText>}
-            </FormGroup>
+          <FormControl error={!!errors['Mobile application']}>
+            <FormControlLabel
+              control={<Checkbox name="Mobile application" />}
+              label="Mobile application"
+              {...register('Mobile application', { required: 'please check' })}
+            />
+            {!!errors['Mobile application'] && <FormHelperText>{errors['Mobile application']?.message}</FormHelperText>}
           </FormControl>
-
+          <FormControl>
+            {' '}
+            <FormControlLabel
+              control={<Checkbox name="On website" />}
+              label="On website"
+              {...register('On website')}
+            />
+          </FormControl>
+          <FormControl>
+            <FormControlLabel
+              control={<Checkbox name="At store location" />}
+              label="At store location"
+              {...register('At store location', { required: 'At store location' })}
+            />
+          </FormControl>
           <FormControl error={!!errors['description']} variant="outlined">
             <InputLabel htmlFor={'description'}>Business Description</InputLabel>
             <OutlinedInput
               id="description"
               label="Business Description"
+              autoComplete="off"
               multiline
               rows={4}
               endAdornment={
@@ -189,17 +195,18 @@ const history=useNavigate();
                   <DescriptionIcon />
                 </InputAdornment>
               }
-              {...register('description', { required: 'Please enter description', maxLength:{value:50,message:"Maximum 50 words are allowed"} })}
+              {...register('description', {
+                required: 'Please enter description',
+                maxLength: { value: 50, message: 'Maximum 50 words are allowed' },
+              })}
             />
             {!!errors['description'] && (
               <FormHelperText id="description">{errors['description']?.message}</FormHelperText>
             )}
           </FormControl>
-          {/* <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/business-registration-types"> */}
           <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }} fullWidth>
             Next
           </Button>
-          {/* </NavLink> */}
         </Grid>
       </form>
     </PageContainer>

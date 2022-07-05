@@ -27,7 +27,8 @@ import {
 import { Navigate, NavLink, useNavigate } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/businessdetails.json'
-
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 export const BusinessDetails = () => {
   const {
     register,
@@ -36,6 +37,8 @@ export const BusinessDetails = () => {
     formState: { errors },
   } = useForm()
   const history = useNavigate()
+  const dispatch = useDispatch()
+  
   return (
     <PageContainer lottie={lottie}>
       <Typography variant={'h4'}>Business Details</Typography>
@@ -50,6 +53,7 @@ export const BusinessDetails = () => {
             <OutlinedInput
               id={'name'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <PersonOutlineOutlined />
@@ -66,6 +70,7 @@ export const BusinessDetails = () => {
             <OutlinedInput
               id={'pan'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <PanoramaOutlined />
@@ -82,6 +87,7 @@ export const BusinessDetails = () => {
             <OutlinedInput
               id={'aadharNo'}
               type={'number'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <DraftsOutlined />
@@ -97,6 +103,7 @@ export const BusinessDetails = () => {
             <OutlinedInput
               id={'address'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <HomeOutlined />
@@ -113,6 +120,7 @@ export const BusinessDetails = () => {
               <OutlinedInput
                 id={'pincode'}
                 type={'number'}
+                autoComplete="off"
                 endAdornment={
                   <InputAdornment position="end">
                     <FormatListNumberedRtlOutlined />
@@ -132,6 +140,7 @@ export const BusinessDetails = () => {
               <OutlinedInput
                 id={'city'}
                 type={'text'}
+                autoComplete="off"
                 endAdornment={
                   <InputAdornment position="end">
                     <LocationCityOutlined />
@@ -149,6 +158,7 @@ export const BusinessDetails = () => {
             <OutlinedInput
               id={'state'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <FlagOutlined />

@@ -54,7 +54,7 @@ export const OTPpage = () => {
           </Box>
 
           <FormControl>
-            <FormLabel style={{ textAlign: 'left', marginBottom: '20px', marginTop: '20px', marginLeft: '12px' }}>
+            <FormLabel style={{ textAlign: 'left', marginBottom: '20px', marginTop: '20px', marginLeft: '10px' }}>
               Enter OTP
             </FormLabel>
             <OtpInput
@@ -74,11 +74,11 @@ export const OTPpage = () => {
               }}
             />
             {error ? (
-              <span style={{ textAlign: 'left', marginTop: '10px', marginLeft: '15px', color: 'red' }}>{error}</span>
+              <span style={{ textAlign: 'left', marginTop: '10px', marginLeft: '10px', color: 'red' }}>{error}</span>
             ) : null}
             <p
               underline="none"
-              style={{ textAlign: 'left', marginTop: '10px', marginLeft: '15px', color: '#90CAF9  ' }}
+              style={{ textAlign: 'left', marginTop: '10px', marginLeft: '10px', color: '#90CAF9  ' }}
               onClick={resendOTP}>
               Resend OTP
             </p>

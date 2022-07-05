@@ -16,7 +16,7 @@ import { PersonOutlineOutlined, PanoramaOutlined, DocumentScannerOutlined } from
 import { NavLink, useNavigate } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import lottie from '../assets/lottie/legalinformation.json'
-
+import { useDispatch, useSelector } from 'react-redux'
 export const LegalInformation = () => {
   const {
     register,
@@ -25,6 +25,9 @@ export const LegalInformation = () => {
     formState: { errors },
   } = useForm()
   const history = useNavigate()
+  const dispatch = useDispatch()
+ 
+  
   return (
     <PageContainer lottie={lottie}>
       <Typography variant={'h4'}>Legal Information</Typography>
@@ -39,6 +42,7 @@ export const LegalInformation = () => {
             <OutlinedInput
               id={'businesName'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <PersonOutlineOutlined />
@@ -57,6 +61,7 @@ export const LegalInformation = () => {
             <OutlinedInput
               id={'businessPan'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <PanoramaOutlined />
@@ -75,6 +80,7 @@ export const LegalInformation = () => {
             <OutlinedInput
               id={'businessGST'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <DocumentScannerOutlined />
@@ -93,6 +99,7 @@ export const LegalInformation = () => {
             <OutlinedInput
               id={'businessOwnerName'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <PersonOutlineOutlined />
@@ -111,6 +118,7 @@ export const LegalInformation = () => {
             <OutlinedInput
               id={'businessOwnerPan'}
               type={'text'}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <PanoramaOutlined />
@@ -129,12 +137,12 @@ export const LegalInformation = () => {
               className="back-button"
               style={{ textDecoration: 'none', color: 'black' }}
               to="/business-registration-types">
-              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '170px' }}>
+              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '165px' }}>
                 BACK
               </Button>
             </NavLink>
             {/* <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/agreement"> */}
-            <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '170px' }}>
+            <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '165px' }}>
               Next
             </Button>
             {/* </NavLink> */}

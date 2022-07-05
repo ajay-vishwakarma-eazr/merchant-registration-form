@@ -61,6 +61,7 @@ const useStyles = theme => ({
     justify-content: center;
     > * {
       transform: scale(1.7);
+
       width: 50%;
       height: 50%;
     }

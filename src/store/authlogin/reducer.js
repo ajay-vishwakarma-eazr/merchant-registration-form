@@ -106,7 +106,6 @@ const authLogin = (state = initialState, action) => {
     case LOGOUT_PARTNER_FAILED:
       return { ...state, loading: false, errors: action.payload }
 
-
     case CLEAR_ERROR:
       return {
         error: [],
