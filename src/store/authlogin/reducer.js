@@ -50,6 +50,8 @@ const authLogin = (state = initialState, action) => {
         loading: false,
         showOtpModal: true,
         errors: action.payload,
+
+        
       }
 
     case VERIFY_OTP_SUCCESS:

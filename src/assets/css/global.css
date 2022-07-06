@@ -10,19 +10,26 @@ input::-webkit-inner-spin-button {
     height: 200px !important;
 }
 .success-container{
-    position: relative;
+    position: relative !important;
 }
 .success-animation{
-position: absolute;
-z-index: 10;
-top:0px;
-left: 0px;
-width:100vw;
-height: 310px;
-transform: scale(3);
-
+position: absolute !important;
+margin: 0px !important;
+padding: 0px !important;
+z-index: 10 !important;
+top:0px !important;
+left: 40% !important;
+width:15vw  !important;
+height: 310px !important;
+transform: scale(3) !important;
 }
 @media only screen and (max-width: 420px) {
+.success-animation{
+    transform: scale(5) !important;
+    height: 200px !important;
+}
+
+
 .css-m9r77w-MuiGrid-root{
     padding-left:34px !important;
     padding-right: 34px !important;
@@ -31,6 +38,9 @@ transform: scale(3);
 
 @media only screen and (max-width: 510px) {
 
+.button{
+    width: 100% !important;
+}
 
  .css-lvf3lb-MuiFormControl-root
 {
@@ -46,12 +56,25 @@ transform: scale(3);
     justify-content: center !important;
     
 }
+}
 
+@media only screen and (max-width: 1030px) {
+  .css-lvf3lb-MuiFormControl-root
+{
+    width: 100% !important;
+    margin-bottom: 10px !important;
+}
+
+.css-55xgnh-MuiFormControl-root{
+    width: 100% !important;
+     margin-left: 0px !important;
+}
+   
+.button{
+    width: 100% !important;
+}
 .back-button{
     margin-bottom: 10px !important;
-    /* margin-left: 0px !important; */
 }
 
-
 }
-

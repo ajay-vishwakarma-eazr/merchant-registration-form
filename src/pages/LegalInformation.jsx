@@ -133,19 +133,26 @@ export const LegalInformation = () => {
           </FormControl>
 
           <Grid container justifyContent={'space-between'}>
-            <NavLink
-              className="back-button"
-              style={{ textDecoration: 'none', color: 'black' }}
-              to="/business-registration-types">
-              <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '165px' }}>
+            <NavLink  className="button" style={{ textDecoration: 'none', color: 'black' }} to="/business-registration-types">
+              <Button
+                className="back-button button"
+                variant={'contained'}
+                type={'submit'}
+                size={'large'}
+                style={{ height: '56px', width: '160px' }}>
                 BACK
               </Button>
             </NavLink>
-            {/* <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/agreement"> */}
-            <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px', width: '165px' }}>
+          
+            <Button
+              className="button"
+              variant={'contained'}
+              type={'submit'}
+              size={'large'}
+              style={{ height: '56px', width: '160px' }}>
               Next
             </Button>
-            {/* </NavLink> */}
+           
           </Grid>
         </Grid>
       </form>

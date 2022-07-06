@@ -19,13 +19,13 @@ export const AnimatedRoutes = () => {
         <Route path={'/login'} element={<LoginPage />} />
         <Route path={'/otp/:contactNumber'} element={<OTPpage />} />
         <Route path={'/register'} element={<RegisterPage />} />
-        <Route element={<ProtectedRoutes />}>
+        {/* <Route element={<ProtectedRoutes />}> */}
           <Route path={'/business-details'} element={<BusinessDetails />} />
           <Route path={'/legal-information'} element={<LegalInformation />} />
           <Route path={'/registered-sucessful'} element={<RegisterSuccess />} />
           <Route path={'/business-registration-types'} element={<BusinessRegistrationTypes />} />
           <Route path={'/agreement'} element={<AgreementPage />} />
-        </Route>
+        {/* </Route> */}
       </Routes>
     </AnimatePresence>
   )

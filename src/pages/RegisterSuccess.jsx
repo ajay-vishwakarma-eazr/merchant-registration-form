@@ -7,8 +7,8 @@ import { Player, Controls } from '@lottiefiles/react-lottie-player'
 import { useEffect } from 'react'
 export const RegisterSuccess = () => {
   useEffect(() => {
-    const timer = setTimeout(() =>  window.open('https://enroll.eazr.in'), 7000)
-    return () => clearTimeout(timer)
+    // const timer = setTimeout(() =>  window.open('https://enroll.eazr.in'), 7000)
+    // return () => clearTimeout(timer)
   }, [])
   return (
     <PageContainer lottie={lottie} className="success-container">

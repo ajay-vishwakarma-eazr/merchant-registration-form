@@ -6,19 +6,18 @@ import { OTPpage } from "../pages/OTPpage";
 import { RegisterSuccess } from "../pages/RegisterSuccess";
 
 const authProtectedRoutes = [
- 
-  { path: '/register', component: RegisterPage },
-  { path: '/business-registration-types', component: BusinessRegistrationTypes },
-  { path: '/business-details', component: BusinessDetails },
-  { path: '/legal-informatio', component: LegalInformation },
-  { path: '/agreement', component: AgreementPage },
-  { path: '/registered-successful', component: RegisterSuccess },
+  { path: '/register', element: RegisterPage },
+  { path: '/business-registration-types', element: BusinessRegistrationTypes },
+  { path: '/business-details', element: BusinessDetails },
+  { path: '/legal-informatio', element: LegalInformation },
+  { path: '/agreement', element: AgreementPage },
+  { path: '/registered-successful', element: RegisterSuccess },
 ]
 
 const publicRoutes = [
-  { path: '/', component: LoginPage },
-  { path: '/login', component: LoginPage },
-  { path: '/otp/:contactNumber', component: OTPpage },
+  { path: '/', element: LoginPage },
+  { path: '/login', element: LoginPage },
+  { path: '/otp/:contactNumber', element: OTPpage },
 ]
 
 export {authProtectedRoutes,publicRoutes}

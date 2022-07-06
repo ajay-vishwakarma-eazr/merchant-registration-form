@@ -161,25 +161,20 @@ export const RegisterPage = props => {
 
           <FormControl error={!!errors['Mobile application']}>
             <FormControlLabel
-              control={<Checkbox name="Mobile application" />}
+              control={<Checkbox name="Mobile application" checked />}
               label="Mobile application"
               {...register('Mobile application', { required: 'please check' })}
             />
             {!!errors['Mobile application'] && <FormHelperText>{errors['Mobile application']?.message}</FormHelperText>}
           </FormControl>
           <FormControl>
-            {' '}
-            <FormControlLabel
-              control={<Checkbox name="On website" />}
-              label="On website"
-              {...register('On website')}
-            />
+            <FormControlLabel control={<Checkbox name="On website" />} label="On website" {...register('On website')} />
           </FormControl>
           <FormControl>
             <FormControlLabel
               control={<Checkbox name="At store location" />}
               label="At store location"
-              {...register('At store location', { required: 'At store location' })}
+              {...register('At store location')}
             />
           </FormControl>
           <FormControl error={!!errors['description']} variant="outlined">

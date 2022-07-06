@@ -38,7 +38,7 @@ export const BusinessDetails = () => {
   } = useForm()
   const history = useNavigate()
   const dispatch = useDispatch()
-  
+
   return (
     <PageContainer lottie={lottie}>
       <Typography variant={'h4'}>Business Details</Typography>
@@ -172,24 +172,26 @@ export const BusinessDetails = () => {
 
           <Grid container justifyContent={'space-between'}>
             <NavLink
-              className="back-button"
+              className="button"
               style={{ textDecoration: 'none', color: 'black' }}
               to="/business-registration-types">
               <Button
+                className="back-button button"
                 variant={'contained'}
                 type={'submit'}
                 size={'large'}
-                style={{ height: '56px', width: '170px' }}
+                style={{ height: '56px', width: '160px' }}
                 fullWidth>
                 BACK
               </Button>
             </NavLink>
 
             <Button
+              className="button"
               variant={'contained'}
               type={'submit'}
               size={'large'}
-              style={{ height: '56px', width: '170px' }}
+              style={{ height: '56px', width: '160px' }}
               fullWidth>
               NEXT
             </Button>
