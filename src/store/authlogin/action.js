@@ -90,9 +90,13 @@ export const verify = (contactNumber, otp, history) => async dispatch => {
     //   throw res.data.message
     // }
   } catch (error) {
+    const data = {
+      details: error.response.data?.details,
+      message: error.response.data?.message,
+    }
     dispatch({
       type: VERIFY_OPT_FAIL,
-      payload: error.response.data?.message,
+      payload: data,
     })
     if (error.response.data?.message === 'Partner Not Registered') {
       history('/register')

@@ -18,14 +18,15 @@ export const AnimatedRoutes = () => {
         <Route path={'/*'} element={<LoginPage />} />
         <Route path={'/login'} element={<LoginPage />} />
         <Route path={'/otp/:contactNumber'} element={<OTPpage />} />
-        <Route path={'/register'} element={<RegisterPage />} />
-        {/* <Route element={<ProtectedRoutes />}> */}
-          <Route path={'/business-details'} element={<BusinessDetails />} />
-          <Route path={'/legal-information'} element={<LegalInformation />} />
-          <Route path={'/registered-sucessful'} element={<RegisterSuccess />} />
-          <Route path={'/business-registration-types'} element={<BusinessRegistrationTypes />} />
-          <Route path={'/agreement'} element={<AgreementPage />} />
-        {/* </Route> */}
+        <Route path={'/register'} element={<ProtectedRoutes Component={RegisterPage} />} />
+        <Route path={'/business-details'} element={<ProtectedRoutes Component={BusinessDetails} />} />
+        <Route path={'/legal-information'} element={<ProtectedRoutes Component={LegalInformation} />} />
+        <Route path={'/registered-sucessful'} element={<ProtectedRoutes Component={RegisterSuccess} />} />
+        <Route
+          path={'/business-registration-types'}
+          element={<ProtectedRoutes Component={BusinessRegistrationTypes} />}
+        />
+        <Route path={'/agreement'} element={<ProtectedRoutes Component={AgreementPage} />} />
       </Routes>
     </AnimatePresence>
   )

@@ -21,7 +21,7 @@ export const OTPpage = () => {
   useEffect(() => {
     return () => dispatch(clearError())
   }, [])
-  const { message, error } = useSelector(state => state.login)
+  const { error } = useSelector(state => state.login)
   const [otp, setOtp] = React.useState(null)
   const dispatch = useDispatch()
   const history = useNavigate()

@@ -21,6 +21,7 @@ const initialState = {
   partner: [],
   error: [],
   message: [],
+  details: '',
 }
 
 const authLogin = (state = initialState, action) => {
@@ -48,10 +49,7 @@ const authLogin = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        showOtpModal: true,
         errors: action.payload,
-
-        
       }
 
     case VERIFY_OTP_SUCCESS:
@@ -63,7 +61,8 @@ const authLogin = (state = initialState, action) => {
     case VERIFY_OPT_FAIL:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.message,
+        details: action.payload.details,
       }
 
     case CHECK_LOGIN:
