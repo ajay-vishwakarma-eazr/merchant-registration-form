@@ -1,1 +1,1 @@
-export const ip = 'https://apin.eazr.in'
+export const ip = 'http://localhost:3001'

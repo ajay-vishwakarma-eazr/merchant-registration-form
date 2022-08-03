@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { Navigate, NavLink, useNavigate } from 'react-router-dom'
 import '../assets/css/global.css'
 import {
@@ -13,7 +13,9 @@ import {
   InputAdornment,
   InputLabel,
   Link,
+  MenuItem,
   OutlinedInput,
+  Select,
   Typography,
 } from '@mui/material'
 import { LocalPhone } from '@mui/icons-material'
@@ -22,11 +24,14 @@ import lottie from '../assets/lottie/Login.json'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../store/authlogin/action'
 import { useEffect } from 'react'
+import axios from 'axios'
+import { ip } from '../config/config'
 export const LoginPage = () => {
   const {
     register,
     handleSubmit,
     getValues,
+    control,
     formState: { errors },
   } = useForm()
   const dispatch = useDispatch()
@@ -34,9 +39,10 @@ export const LoginPage = () => {
   const { message } = useSelector(state => state.login)
 
   const onSubmit = data => {
-    const contactNumber = getValues('contactNumber')
-    dispatch(login(contactNumber))
-    history(`/otp/${contactNumber}`)
+    const name = getValues('name')
+    axios.post(`${ip}/leads-agents`, { name }).then(res => {
+      history(`/business-details/${res.data._id}`)
+    })
   }
 
   const data = (
@@ -54,7 +60,7 @@ export const LoginPage = () => {
         />
         <Box container style={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant={'h6'} color={'white'} style={{ textAlign: 'left' }}>
-            Let's Register Your Brand!
+            Let's Register Lead!
           </Typography>
         </Box>
       </Grid>
@@ -62,32 +68,31 @@ export const LoginPage = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container rowGap={5}>
           <Grid container direction={'column'} rowGap={2}>
-            <FormControl variant="outlined" error={!!errors['contactNumber']}>
-              <InputLabel>Phone Number </InputLabel>
-              <OutlinedInput
-                id={'contactNumber'}
-                type={'number'}
-                autoFocus
-                autoComplete='off'
-                endAdornment={
-                  <InputAdornment position="end">
-                    <LocalPhone />
-                  </InputAdornment>
-                }
-                label="Phone Number"
-                {...register('contactNumber', {
-                  required: 'Please enter your phone number',
-                  minLength: { value: 10, message: 'Enter 10 digit number' },
-                  maxLength: { value: 10, message: 'Enter 10 digit number' },
-                })}
+            <FormControl error={!!errors['name']} variant="outlined">
+              <InputLabel>Lead Agents</InputLabel>
+              <Controller
+                render={props => (
+                  <Select
+                    labelId="demo-simple-select-label"
+                    style={{ textAlign: 'left' }}
+                    label="Lead Agents"
+                    defaultValue=""
+                    {...register('name', { required: 'Please choose one' })}>
+                    <MenuItem value={'Ankita'}>Ankita</MenuItem>
+                    <MenuItem value={'Amreet'}>Amreet</MenuItem>
+                    <MenuItem value={'Samreen'}>Samreen</MenuItem>
+                  </Select>
+                )}
+                name="name"
+                control={control}
               />
-              {!!errors['contactNumber'] && <FormHelperText>{errors['contactNumber']?.message}</FormHelperText>}
+              {!!errors['name'] && <FormHelperText>{errors['name']?.message}</FormHelperText>}
             </FormControl>
           </Grid>
 
           <Grid container direction={'column'} rowGap={2}>
             <Button variant={'contained'} type={'submit'} size={'large'} style={{ height: '56px' }} fullWidth>
-              Proceed
+              NEXT
             </Button>
             <Box container style={{ display: 'flex', flexDirection: 'column' }}>
               <Typography variant={'p'} color={'white'} style={{ textAlign: 'left', fontSize: '12px' }}>

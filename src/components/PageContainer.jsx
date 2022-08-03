@@ -22,11 +22,7 @@ export const PageContainer = ({ children, lottie }) => {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 10 }}>
-      {!isMobile && (
-        <div className={styles.left}>
-          <Lottie animationData={lottie} loop />
-        </div>
-      )}
+      
       <Grid
         container
         direction={'column'}
@@ -45,9 +41,9 @@ export const PageContainer = ({ children, lottie }) => {
 const useStyles = theme => ({
   root: css`
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 610px;
-    max-width: 1200px;
+    grid-template-columns: 1fr;
+    min-height: 510px;
+    max-width: 600px;
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.1);
     border-radius: 24px;
     margin: 5% 0 5% 0;
@@ -68,7 +64,7 @@ const useStyles = theme => ({
   `,
   container: css`
     background-color: ${Color(theme.palette.background.default).lighten(1.5).hex()};
-    border-radius: 0 24px 24px 0;
+    border-radius: 24px ;
   `,
   isTablet: css`
     > div {
